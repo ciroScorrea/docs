@@ -117,8 +117,8 @@ $ sudo yum-config-manager --add-repo {{ download-url-base }}/docker-ce.repo
    </div>
    <div id="tab-version" class="tab-pane fade" markdown="1">
 
-   To install a specific version, start by listing the available versions in
-   the repository:
+   To install a specific version, start by listing the available versions of docker-ce
+   in the repository:
 
    ```console
    $ yum list docker-ce --showduplicates | sort -r
@@ -128,20 +128,34 @@ $ sudo yum-config-manager --add-repo {{ download-url-base }}/docker-ce.repo
    <...>
    ```
 
+   And also, the available versions of docker-ce-cli:
+
+   ```console
+   $ yum list docker-ce-cli --showduplicates | sort -r
+
+   docker-ce.x86_64    1:24.0.0-1.el8    docker-ce-stable
+   docker-ce.x86_64    1:23.0.6-1.el8    docker-ce-stable
+   <...>
+   ```
+   
    The list returned depends on which repositories are enabled, and is specific
    to your version of CentOS (indicated by the `.el8` suffix in this example).
 
    Install a specific version by its fully qualified package name, which is
    the package name (`docker-ce`) plus the version string (2nd column),
-   separated by a hyphen (`-`). For example, `docker-ce-3:24.0.0-1.el8`.
+   separated by a hyphen (`-`). For example, `docker-ce-3:24.0.0-1.el8` and `docker-ce-cli-1:24.0.0-1.el8.
 
-   Replace `<VERSION_STRING>` with the desired version and then run the following
+   Replace `<CE_VERSION_STRING>` and `<CLI_VERSION_STRING>` with the desired version and then run the following
    command to install:
 
    ```console
-   $ sudo yum install docker-ce-<VERSION_STRING> docker-ce-cli-<VERSION_STRING> containerd.io docker-buildx-plugin docker-compose-plugin
+   $ sudo yum install docker-ce-<CE_VERSION_STRING> docker-ce-cli-<CLI_VERSION_STRING> containerd.io docker-buildx-plugin docker-compose-plugin
    ```
-
+> **Warning**
+>
+> Keep the compatibility between docker-ce and docker-ce-cli.
+{: .warning}
+     
    This command installs Docker, but it doesn't start Docker. It also creates a
    `docker` group, however, it doesn't add any users to the group by default.
 
